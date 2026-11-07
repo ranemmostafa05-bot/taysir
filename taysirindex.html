@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">TAYSIR - Digital Government Services</title>
+<!-- Google Font: Cairo -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+:root {
+    --navy: #0f2c39;
+    --navy-light: #163d4f;
+    --green: #0d9488;
+    --green-hover: #0f766e;
+    --light: #f8fafc;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --card-bg: #ffffff;
+}
+
+body {
+    background: var(--light);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+header {
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: white;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #38bdf8;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    font-size: 13px;
+    color: #cbd5e1;
+    margin-top: 2px;
+}
+
+/* Lang Switcher */
+.lang-switcher select {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    margin: 0;
+    width: auto;
+}
+
+.lang-switcher select option {
+    background: var(--navy);
+    color: white;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(85vh - 70px);
+}
+
+.sidebar {
+    width: 260px;
+    background: white;
+    padding: 25px 15px;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+}
+
+html[dir="rtl"] .sidebar {
+    border-right: none;
+    border-left: 1px solid var(--border);
+}
+
+.sidebar button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: inherit;
+    background: transparent;
+    color: var(--text);
+    margin: 6px 0;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #f0fdf4;
+    color: var(--green);
+}
+
+html[dir="ltr"] .sidebar button:hover,
+html[dir="ltr"] .sidebar button.active {
+    transform: translateX(4px);
+}
+
+html[dir="rtl"] .sidebar button:hover,
+html[dir="rtl"] .sidebar button.active {
+    transform: translateX(-4px);
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+    min-width: 0;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+}
+
+p {
+    line-height: 1.7;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+    margin: 12px 0 8px;
+    font-size: 18px;
+    color: var(--navy);
+}
+
+.icon {
+    font-size: 32px;
+    background: #f0fdf4;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+}
+
+.document {
+    border-top: 5px solid var(--green);
+}
+
+.status {
+    display: inline-block;
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+button {
+    border: none;
+    background: var(--green);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    margin-top: 12px;
+}
+
+button:hover {
+    background: var(--green-hover);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    margin: 8px 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    display: block;
+}
+
+form {
+    max-width: 600px;
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border);
+    margin-top: 22px;
+}
+
+.result {
+    display: none;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    padding: 16px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.request {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid var(--border);
+    margin: 15px 0;
+}
+
+html[dir="ltr"] .request {
+    border-left: 5px solid var(--green);
+}
+
+html[dir="rtl"] .request {
+    border-right: 5px solid var(--green);
+}
+
+.reminder {
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.reminder h3 {
+    color: #854d0e;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    font-size: 14px;
+}
+
+@media(max-width: 768px) {
+    .layout {
+        display: block;
+    }
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        padding: 12px;
+    }
+    .sidebar button {
+        min-width: max-content;
+        margin: 0 4px;
+    }
+    main {
+        padding: 20px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-left">
+        <div>
+            <div class="logo">TAYSIR.</div>
+            <p id="subLogo">Digital Government Wallet</p>
+        </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="lang-switcher">
+            <select id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="en">English 🇺🇸</option>
+                <option value="ar">العربية 🇪🇬</option>
+            </select>
+        </div>
+        <p id="countryBadge">🇪🇬 Egypt | Demo</p>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebarNav">
+    <button class="active" onclick="navigate('home',this)"><span id="navHome">🏠 Dashboard</span></button>
+    <button onclick="navigate('wallet',this)"><span id="navWallet">🪪 My Documents</span></button>
+    <button onclick="navigate('renew',this)"><span id="navRenew">🔄 Renew Documents</span></button>
+    <button onclick="navigate('requests',this)"><span id="navRequests">📋 My Requests</span></button>
+    <button onclick="navigate('booking',this)"><span id="navBooking">📅 Smart Booking</span></button>
+    <button onclick="navigate('payments',this)"><span id="navPayments">💳 Fines & Taxes</span></button>
+    <button onclick="navigate('assistant',this)"><span id="navAssistant">🤖 Smart Assistant</span></button>
+    <button onclick="navigate('reminders',this)"><span id="navReminders">🔔 Reminders</span></button>
+</aside>
+
+<main>
+
+<!-- HOME -->
+<section id="home">
+    <h1 id="homeTitle">Welcome to TAYSIR 👋</h1>
+    <p class="muted" id="homeDesc">All your government services in one place, simplified and secured.</p>
+
+    <div class="grid">
+        <div class="card">
+            <div class="icon">🪪</div>
+            <h3 id="cardWalletTitle">Digital Wallet</h3>
+            <p class="muted" id="cardWalletDesc">Access your personal documents anytime.</p>
+            <button onclick="navigate('wallet')" id="btnWallet">View Documents</button>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔄</div>
+            <h3 id="cardRenewTitle">Renew Documents</h3>
+            <p class="muted" id="cardRenewDesc">Apply for document renewal from home.</p>
+            <button onclick="navigate('renew')" id="btnRenew">Renew Now</button>
+        </div>
+
+        <div class="card">
+            <div class="icon">📅</div>
+            <h3 id="cardBookingTitle">Smart Booking</h3>
+            <p class="muted" id="cardBookingDesc">Book your government appointments.</p>
+            <button onclick="navigate('booking')" id="btnBooking">Book Now</button>
+        </div>
+
+        <div class="card">
+            <div class="icon">💳</div>
+            <h3 id="cardPayTitle">Fines & Taxes</h3>
+            <p class="muted" id="cardPayDesc">Check your fines and tax information.</p>
+            <button onclick="navigate('payments')" id="btnPay">Check Now</button>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 25px;">
+        <h2 id="overviewTitle">Quick Overview</h2>
+        <p id="docCountText">🪪 3 Digital Documents Available</p>
+        <p id="requestCount">📋 0 Renewal Requests</p>
+        <p id="bookingCount">📅 0 Appointment Requests</p>
+    </div>
+</section>
+
+<!-- WALLET -->
+<section id="wallet" class="hidden">
+    <h1 id="walletTitle">My Digital Wallet 🪪</h1>
+    <p class="muted" id="walletDesc">Your personal government documents in one secure place.</p>
+
+    <div class="grid">
+        <div class="card document">
+            <div class="icon">🪪</div>
+            <h3 id="doc1Title">National ID Card</h3>
+            <p id="owner1">Owner: Demo User</p>
+            <p class="muted" id="num1">Document Number: ********</p>
+            <p class="muted" id="exp1">Expiry: 15/06/2029</p>
+            <span class="status" id="status1">Active - Demo</span>
+            <button onclick="showDocument('National ID Card')" id="viewDoc1">View Document</button>
+        </div>
+
+        <div class="card document">
+            <div class="icon">🚗</div>
+            <h3 id="doc2Title">Driving License</h3>
+            <p id="owner2">Owner: Demo User</p>
+            <p class="muted" id="num2">License Number: ********</p>
+            <p class="muted" id="exp2">Expiry: 20/08/2028</p>
+            <span class="status" id="status2">Active - Demo</span>
+            <button onclick="showDocument('Driving License')" id="viewDoc2">View Document</button>
+        </div>
+
+        <div class="card document">
+            <div class="icon">🛂</div>
+            <h3 id="doc3Title">Passport</h3>
+            <p id="owner3">Owner: Demo User</p>
+            <p class="muted" id="num3">Passport Number: ********</p>
+            <p class="muted" id="exp3">Expiry: 10/12/2030</p>
+            <span class="status" id="status3">Active - Demo</span>
+            <button onclick="showDocument('Passport')" id="viewDoc3">View Document</button>
+        </div>
+    </div>
+
+    <div class="form-card" id="documentDetails">
+        <h2 id="detailsTitle">Document Details</h2>
+        <p class="muted" id="detailsDesc">Select a document above to see more information.</p>
+    </div>
+</section>
+
+<!-- RENEWAL -->
+<section id="renew" class="hidden">
+    <h1 id="renewPageTitle">Renew Your Documents 🔄</h1>
+    <p class="muted" id="renewPageDesc">Apply for document renewal quickly from home.</p>
+
+    <div class="form-card">
+        <form id="renewForm" onsubmit="submitRenewal(event)">
+            <label id="labelDocType">Choose Document</label>
+            <select id="renewType" required>
+                <option value="" id="optSelect">Select Document</option>
+                <option id="optId">National ID Card</option>
+                <option id="optLicense">Driving License</option>
+                <option id="optPassport">Passport</option>
+            </select>
+
+            <label id="labelName">Full Name</label>
+            <input type="text" id="inputName" required placeholder="Full Name">
+
+            <label id="labelIdNum">National ID Number</label>
+            <input type="text" id="inputNatId" maxlength="14" pattern="[0-9]{14}" required placeholder="14 digit ID">
+
+            <label id="labelEmail">Email</label>
+            <input type="email" id="inputEmail" required placeholder="Email Address">
+
+            <label id="labelUpload">Upload Required Documents</label>
+            <input type="file" multiple required>
+
+            <label id="labelNotes">Additional Notes</label>
+            <textarea id="inputNotes" placeholder="Additional Information (Optional)"></textarea>
+
+            <button type="submit" id="btnSubmitRenew">Submit Renewal Request</button>
+        </form>
+        <div id="renewResult" class="result"></div>
+    </div>
+</section>
+
+<!-- REQUESTS -->
+<section id="requests" class="hidden">
+    <h1 id="reqPageTitle">My Requests 📋</h1>
+    <p class="muted" id="reqPageDesc">Track the status of your submitted renewal applications.</p>
+    <div id="requestsList" style="margin-top: 20px;"></div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="hidden">
+    <h1 id="bookPageTitle">Smart Appointment Booking 📅</h1>
+    <p class="muted" id="bookPageDesc">Choose your government office and preferred schedule.</p>
+
+    <div class="form-card">
+        <form id="bookingForm" onsubmit="submitBooking(event)">
+            <label id="labelOffice">Government Service</label>
+            <select id="office" required>
+                <option value="" id="optOfficeSelect">Select Office</option>
+                <option id="off1">Passport Office</option>
+                <option id="off2">Civil Registry</option>
+                <option id="off3">Traffic Department</option>
+                <option id="off4">Tax Office</option>
+            </select>
+
+            <label id="labelLocation">Location</label>
+            <select id="location" required>
+                <option value="" id="optLocSelect">Select Location</option>
+                <option>6th of October</option>
+                <option>Sheikh Zayed</option>
+                <option>Giza</option>
+                <option>Nasr City</option>
+            </select>
+
+            <label id="labelDate">Appointment Date</label>
+            <input type="date" id="appointmentDate" required>
+
+            <label id="labelTime">Appointment Time</label>
+            <select id="appointmentTime">
+                <option>10:00 AM</option>
+                <option>11:00 AM</option>
+                <option>12:00 PM</option>
+                <option>01:00 PM</option>
+            </select>
+
+            <button type="submit" id="btnConfirmBooking">Confirm Booking Request</button>
+        </form>
+        <div id="bookingResult" class="result"></div>
+    </div>
+</section>
+
+<!-- PAYMENTS -->
+<section id="payments" class="hidden">
+    <h1 id="payPageTitle">Fines & Taxes 💳</h1>
+    <p class="muted" id="payPageDesc">Manage and check your government payments securely.</p>
+
+    <div class="form-card">
+        <form onsubmit="checkPayments(event)">
+            <label id="labelPayId">National ID Number</label>
+            <input type="text" maxlength="14" pattern="[0-9]{14}" required placeholder="National ID">
+
+            <label id="labelPayType">Payment Type</label>
+            <select id="paymentType">
+                <option id="p1">Traffic Fines</option>
+                <option id="p2">Taxes</option>
+            </select>
+
+            <button type="submit" id="btnCheckPay">Check Payments</button>
+        </form>
+        <div id="paymentResult" class="result"></div>
+    </div>
+</section>
+
+<!-- ASSISTANT -->
+<section id="assistant" class="hidden">
+    <h1 id="astPageTitle">Smart Assistant 🤖</h1>
+    <p class="muted" id="astPageDesc">Ask TAYSIR about government services, procedures, and required documents.</p>
+
+    <div class="form-card">
+        <form onsubmit="askAssistant(event)">
+            <label id="labelQuestion">Your Question</label>
+            <input id="question" required placeholder="What documents do I need for a passport?">
+            <button type="submit" id="btnAsk">Ask TAYSIR</button>
+        </form>
+        <div id="assistantResult" class="result"></div>
+    </div>
+</section>
+
+<!-- REMINDERS -->
+<section id="reminders" class="hidden">
+    <h1 id="remPageTitle">Smart Reminders 🔔</h1>
+    <p class="muted" id="remPageDesc">Never miss your document expiry dates.</p>
+
+    <div class="reminder">
+        <h3 id="rem1Title">🪪 National ID Card</h3>
+        <p id="rem1Exp">Expiry Date: 15/06/2029</p>
+        <p class="muted" id="rem1Note">Reminder: 30 days before expiry.</p>
+    </div>
+
+    <div class="reminder">
+        <h3 id="rem2Title">🚗 Driving License</h3>
+        <p id="rem2Exp">Expiry Date: 20/08/2028</p>
+        <p class="muted" id="rem2Note">Reminder: 30 days before expiry.</p>
+    </div>
+
+    <div class="reminder">
+        <h3 id="rem3Title">🛂 Passport</h3>
+        <p id="rem3Exp">Expiry Date: 10/12/2030</p>
+        <p class="muted" id="rem3Note">Reminder: 30 days before expiry.</p>
+    </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+    <h3 id="footerLogo">TAYSIR.</h3>
+    <p id="footerSlogan">Your Government Services, Made Easy.</p>
+    <p>© 2026 TAYSIR | Demo Project</p>
+</footer>
+
+<script>
+const dict = {
+    en: {
+        subLogo: "Digital Government Wallet",
+        countryBadge: "🇪🇬 Egypt | Demo",
+        navHome: "🏠 Dashboard",
+        navWallet: "🪪 My Documents",
+        navRenew: "🔄 Renew Documents",
+        navRequests: "📋 My Requests",
+        navBooking: "📅 Smart Booking",
+        navPayments: "💳 Fines & Taxes",
+        navAssistant: "🤖 Smart Assistant",
+        navReminders: "🔔 Reminders",
+        homeTitle: "Welcome to TAYSIR 👋",
+        homeDesc: "All your government services in one place, simplified and secured.",
+        cardWalletTitle: "Digital Wallet",
+        cardWalletDesc: "Access your personal documents anytime.",
+        btnWallet: "View Documents",
+        cardRenewTitle: "Renew Documents",
+        cardRenewDesc: "Apply for document renewal from home.",
+        btnRenew: "Renew Now",
+        cardBookingTitle: "Smart Booking",
+        cardBookingDesc: "Book your government appointments.",
+        btnBooking: "Book Now",
+        cardPayTitle: "Fines & Taxes",
+        cardPayDesc: "Check your fines and tax information.",
+        btnPay: "Check Now",
+        overviewTitle: "Quick Overview",
+        docCountText: "🪪 3 Digital Documents Available",
+        walletTitle: "My Digital Wallet 🪪",
+        walletDesc: "Your personal government documents in one secure place.",
+        doc1Title: "National ID Card",
+        doc2Title: "Driving License",
+        doc3Title: "Passport",
+        owner: "Owner: Demo User",
+        statusActive: "Active - Demo",
+        viewDoc: "View Document",
+        detailsTitle: "Document Details",
+        detailsDesc: "Select a document above to see more information.",
+        renewPageTitle: "Renew Your Documents 🔄",
+        renewPageDesc: "Apply for document renewal quickly from home.",
+        labelDocType: "Choose Document",
+        optSelect: "Select Document",
+        optId: "National ID Card",
+        optLicense: "Driving License",
+        optPassport: "Passport",
+        labelName: "Full Name",
+        labelIdNum: "National ID Number",
+        labelEmail: "Email",
+        labelUpload: "Upload Required Documents",
+        labelNotes: "Additional Notes",
+        btnSubmitRenew: "Submit Renewal Request",
+        reqPageTitle: "My Requests 📋",
+        reqPageDesc: "Track the status of your submitted renewal applications.",
+        bookPageTitle: "Smart Appointment Booking 📅",
+        bookPageDesc: "Choose your government office and preferred schedule.",
+        labelOffice: "Government Service",
+        optOfficeSelect: "Select Office",
+        off1: "Passport Office",
+        off2: "Civil Registry",
+        off3: "Traffic Department",
+        off4: "Tax Office",
+        labelLocation: "Location",
+        optLocSelect: "Select Location",
+        labelDate: "Appointment Date",
+        labelTime: "Appointment Time",
+        btnConfirmBooking: "Confirm Booking Request",
+        payPageTitle: "Fines & Taxes 💳",
+        payPageDesc: "Manage and check your government payments securely.",
+        labelPayId: "National ID Number",
+        labelPayType: "Payment Type",
+        p1: "Traffic Fines",
+        p2: "Taxes",
+        btnCheckPay: "Check Payments",
+        astPageTitle: "Smart Assistant 🤖",
+        astPageDesc: "Ask TAYSIR about government services, procedures, and required documents.",
+        labelQuestion: "Your Question",
+        btnAsk: "Ask TAYSIR",
+        remPageTitle: "Smart Reminders 🔔",
+        remPageDesc: "Never miss your document expiry dates.",
+        footerSlogan: "Your Government Services, Made Easy."
+    },
+    ar: {
+        subLogo: "محفظة الخدمات الحكومية الرقمية",
+        countryBadge: "🇪🇬 مصر | نسخة تجريبية",
+        navHome: "🏠 الرئيسية",
+        navWallet: "🪪 مستنداتي",
+        navRenew: "🔄 تجديد المستندات",
+        navRequests: "📋 طلباتي",
+        navBooking: "📅 الحجز الذكي",
+        navPayments: "💳 المخالفات والضرائب",
+        navAssistant: "🤖 المساعد الذكي",
+        navReminders: "🔔 التنبيهات",
+        homeTitle: "أهلاً بك في تيسير 👋",
+        homeDesc: "جميع خدماتك الحكومية في مكان واحد، بسهولة وأمان تام.",
+        cardWalletTitle: "المحفظة الرقمية",
+        cardWalletDesc: "استعرض مستنداتك الشخصية في أي وقت.",
+        btnWallet: "عرض المستندات",
+        cardRenewTitle: "تجديد المستندات",
+        cardRenewDesc: "قدم على تجديد مستنداتك من منزلك.",
+        btnRenew: "جدد الآن",
+        cardBookingTitle: "الحجز الذكي",
+        cardBookingDesc: "احجز مواعيدك الحكومية مسبقاً.",
+        btnBooking: "احجز الآن",
+        cardPayTitle: "المخالفات والضرائب",
+        cardPayDesc: "تحقق من المخالفات والالتزامات الضريبية.",
+        btnPay: "تحقق الآن",
+        overviewTitle: "نظرة عامة سريعة",
+        docCountText: "🪪 3 مستندات رقمية متاحة",
+        walletTitle: "محفظتي الرقمية 🪪",
+        walletDesc: "مستنداتك الشخصية الحكومية في مكان آمن واحد.",
+        doc1Title: "بطاقة الرقم القومي",
+        doc2Title: "رخصة القيادة",
+        doc3Title: "جواز السفر",
+        owner: "المالك: مستخدم تجريبي",
+        statusActive: "نشط - تجريبي",
+        viewDoc: "عرض المستند",
+        detailsTitle: "تفاصيل المستند",
+        detailsDesc: "اختر مستنداً من الأعلى لعرض المزيد من التفاصيل.",
+        renewPageTitle: "تجديد المستندات 🔄",
+        renewPageDesc: "تقدم بطلب تجديد مستنداتك بسهولة من منزلك.",
+        labelDocType: "اختر المستند",
+        optSelect: "اختر المستند",
+        optId: "بطاقة الرقم القومي",
+        optLicense: "رخصة القيادة",
+        optPassport: "جواز السفر",
+        labelName: "الاسم الكامل",
+        labelIdNum: "رقم البطاقة الشخصية (14 رقم)",
+        labelEmail: "البريد الإلكتروني",
+        labelUpload: "رفع المستندات المطلوبة",
+        labelNotes: "ملاحظات إضافية",
+        btnSubmitRenew: "إرسال طلب التجديد",
+        reqPageTitle: "طلباتي 📋",
+        reqPageDesc: "تابع حالة طلبات التجديد التي قدمتها.",
+        bookPageTitle: "حجز المواعيد الذكي 📅",
+        bookPageDesc: "اختر الجهة الحكومية والموعد المناسب لك.",
+        labelOffice: "الخدمة الحكومية",
+        optOfficeSelect: "اختر المصلحة",
+        off1: "مصلحة الجوازات",
+        off2: "السجل المدني",
+        off3: "إدارة المرور",
+        off4: "مصلحة الضرائب",
+        labelLocation: "المنطقة / الفرع",
+        optLocSelect: "اختر الموقع",
+        labelDate: "تاريخ الموعد",
+        labelTime: "وقت الموعد",
+        btnConfirmBooking: "تأكيد طلب الحجز",
+        payPageTitle: "المخالفات والضرائب 💳",
+        payPageDesc: "إدارة والتحقق من المدفوعات الحكومية بأمان.",
+        labelPayId: "رقم البطاقة الشخصية",
+        labelPayType: "نوع المدفوعات",
+        p1: "مخالفات المرور",
+        p2: "الضرائب",
+        btnCheckPay: "التحقق من المدفوعات",
+        astPageTitle: "المساعد الذكي 🤖",
+        astPageDesc: "اسأل منصة تيسير عن الخدمات الحكومية والإجراءات المطلوبة.",
+        labelQuestion: "سؤالك",
+        btnAsk: "اسأل تيسير",
+        remPageTitle: "التنبيهات الذكية 🔔",
+        remPageDesc: "لا تفوت مواعيد انتهاء صلاحية مستنداتك أبداً.",
+        footerSlogan: "خدماتك الحكومية، ببساطة وسهولة."
+    }
+};
+
+let currentLang = "en";
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    const html = document.getElementById("htmlRoot");
+    html.setAttribute("lang", lang);
+    html.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+
+    for (let key in dict[lang]) {
+        let el = document.getElementById(key);
+        if (el) {
+            el.innerText = dict[lang][key];
+        }
+    }
+
+    updateDashboard();
+}
+
+function navigate(page, button) {
+    document.querySelectorAll("main section").forEach(section => {
+        section.classList.add("hidden");
+    });
+    document.getElementById(page).classList.remove("hidden");
+
+    document.querySelectorAll(".sidebar button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+    if(button) button.classList.add("active");
+
+    if(page === "requests") renderRequests();
+    updateDashboard();
+}
+
+function showDocument(name) {
+    let t = dict[currentLang];
+    document.getElementById("documentDetails").innerHTML = 
+        "<h2>" + name + "</h2>" +
+        "<p>" + t.owner + "</p>" +
+        "<p class=\"muted\">Document Number: ********</p>" +
+        "<p><span class=\"status\">" + t.statusActive + "</span></p>" +
+        "<p class=\"muted\" style=\"margin-top:10px;\">Verification: Demo mode.</p>" +
+        "<button onclick=\"navigate('renew')\">" + (currentLang === 'ar' ? 'تجديد المستند' : 'Renew Document') + "</button>";
+}
+
+function getRequests() {
+    return JSON.parse(localStorage.getItem("taysirRequests") || "[]");
+}
+
+function submitRenewal(event) {
+    event.preventDefault();
+    let requests = getRequests();
+    let documentName = document.getElementById("renewType").value;
+    let request = {
+        id: "TY-" + Date.now().toString().slice(-6),
+        document: documentName,
+        date: new Date().toLocaleDateString(),
+        status: currentLang === 'ar' ? 'تم الإرسال - تجريبي' : 'Submitted - Demo'
+    };
+    requests.push(request);
+    localStorage.setItem("taysirRequests", JSON.stringify(requests));
+    
+    let result = document.getElementById("renewResult");
+    result.style.display = "block";
+    result.innerHTML = currentLang === 'ar' 
+        ? "✨ تم حفظ طلب تجديد " + documentName + " بنجاح! رقم المرجع: " + request.id
+        : "✨ Your " + documentName + " request has been saved successfully! Reference ID: " + request.id;
+    document.getElementById("renewForm").reset();
+    updateDashboard();
+}
+
+function renderRequests() {
+    let requests = getRequests();
+    let area = document.getElementById("requestsList");
+    if(requests.length === 0) {
+        area.innerHTML = "<p class='muted'>" + (currentLang === 'ar' ? 'لا توجد طلبات مرسلة حتى الآن.' : 'No requests submitted yet.') + "</p>";
+        return;
+    }
+    area.innerHTML = requests.map(r => 
+        '<div class="request">' +
+        '<h3>' + r.document + '</h3>' +
+        '<p class="muted">' + (currentLang === 'ar' ? 'رقم الطلب: ' : 'Request ID: ') + r.id + '</p>' +
+        '<p class="muted">' + (currentLang === 'ar' ? 'التاريخ: ' : 'Date: ') + r.date + '</p>' +
+        '<span class="status">' + r.status + '</span>' +
+        '</div>'
+    ).join("");
+}
+
+function submitBooking(event) {
+    event.preventDefault();
+    let bookings = JSON.parse(localStorage.getItem("taysirBookings") || "[]");
+    let booking = {
+        office: document.getElementById("office").value,
+        location: document.getElementById("location").value,
+        date: document.getElementById("appointmentDate").value,
+        time: document.getElementById("appointmentTime").value
+    };
+    bookings.push(booking);
+    localStorage.setItem("taysirBookings", JSON.stringify(bookings));
+
+    let result = document.getElementById("bookingResult");
+    result.style.display = "block";
+    result.innerHTML = currentLang === 'ar'
+        ? "✨ تم تأكيد طلب الحجز بنجاح! (تجريبي)<br>الجهة: " + booking.office + "<br>الفرع: " + booking.location + "<br>التاريخ: " + booking.date + "<br>الوقت: " + booking.time
+        : "✨ Your booking request has been confirmed! (Demo)<br>Office: " + booking.office + "<br>Location: " + booking.location + "<br>Date: " + booking.date + "<br>Time: " + booking.time;
+    document.getElementById("bookingForm").reset();
+    updateDashboard();
+}
+
+function checkPayments(event) {
+    event.preventDefault();
+    let type = document.getElementById("paymentType").value;
+    let result = document.getElementById("paymentResult");
+    result.style.display = "block";
+    result.innerHTML = currentLang === 'ar'
+        ? "تجريبي: معلومات " + type + " غير متصلة بالسجلات الحكومية الحية حالياً."
+        : "Demo: " + type + " information is currently simulated and not connected to live records.";
+}
+
+function askAssistant(event) {
+    event.preventDefault();
+    let q = document.getElementById("question").value.toLowerCase();
+    let answer = currentLang === 'ar' ? "يرجى تحديد الخدمة الحكومية التي تحتاج المساعدة بشأنها." : "Please specify the government service you need help with.";
+    
+    if(q.includes("passport") || q.includes("جواز")) {
+        answer = currentLang === 'ar' ? "يتطلب استخراج جواز السفر: بطاقة الرقم القومي، الجواز القديم (إن وجد)، وصور شخصية." : "Passport applications typically require your national ID, previous passport, and personal photographs.";
+    } else if(q.includes("license") || q.includes("رخصة") || q.includes("driving")) {
+        answer = currentLang === 'ar' ? "تتطلب رخصة القيادة: بطاقة الرقم القومي، الرخصة الحالية، والشهادات الطبية." : "Driving license renewal requires your national ID, current license, and medical test certificates.";
+    } else if(q.includes("card") || q.includes("id") || q.includes("بطاقة")) {
+        answer = currentLang === 'ar' ? "خدمات بطاقة الرقم القومي تتطلب البطاقة الحالية ومستندات إثبات محل الإقامة أو العمل." : "National ID services require your current ID card and supporting residential documents.";
+    }
+
+    let result = document.getElementById("assistantResult");
+    result.style.display = "block";
+    result.innerHTML = "🤖 TAYSIR Assistant:<br>" + answer;
+}
+
+function updateDashboard() {
+    let requests = getRequests();
+    let bookings = JSON.parse(localStorage.getItem("taysirBookings") || "[]");
+    
+    let reqText = currentLang === 'ar' ? " طلبات تجديد" : " Renewal Requests";
+    let bookText = currentLang === 'ar' ? " طلبات حجز مواعيد" : " Appointment Requests";
+    
+    document.getElementById("requestCount").innerText = "📋 " + requests.length + reqText;
+    document.getElementById("bookingCount").innerText = "📅 " + bookings.length + bookText;
+}
+
+document.getElementById("appointmentDate").min = new Date().toISOString().split("T")[0];
+updateDashboard();
+</script>
+
+</body>
+</html>
